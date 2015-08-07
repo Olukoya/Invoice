@@ -1,10 +1,13 @@
-	import java.text.NumberFormat;
+import java.text.NumberFormat;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 	public class LineItemApp
 	{
-	    public static void main(String args[])
+	    @SuppressWarnings("unused")
+		public static void main(String args[])
 	    {
+	    	try{
 	        System.out.println(
 	            "Welcome to the Invoice Application");
 	        System.out.println();
@@ -15,18 +18,23 @@ import java.util.Scanner;
 	        double tax=0, taxableSub=0, untaxableSub=0, taxAmount=0, grandTotal=0;
 	        String taxable = "y";
 	        LineItemInvoice item = new LineItemInvoice ();
-	        
+	      try{  
 	        System.out.print("Enter the tax: ");
             tax = sc.nextDouble();
-            item.setTax(tax);
+	        item.setTax(tax);
+	      }catch (InputMismatchException e) {System.err.println("This is not an integer or decimal value");
+	       sc.nextLine();}
 
 	        while (choice.equalsIgnoreCase("y"))
 	        {
 	            // get the input from the user
-	            System.out.print("Enter the item code: ");
-	            @SuppressWarnings("unused")
-				int code = sc.nextInt();
-	            
+	        try{ 
+	         System.out.print("Enter the item code: ");
+			 int code = sc.nextInt();
+	           
+	        }catch (InputMismatchException e) {System.err.println("This is not an integer");
+	        sc.nextLine();}   
+	      System.out.println();
 	            System.out.print("Enter the item price: ");
 	            double price = sc.nextDouble();
 	            	if (price >= 0 && price < 1000)
@@ -80,6 +88,13 @@ import java.util.Scanner;
 	            System.out.println("Untaxable Sub-total: "+  untaxedString);
 	            System.out.println("Tax:                 " +taxString);
 	            System.out.println("Grand Total:         " +grandTotalString);
-		    }
+	            
+	    	}catch (Exception e) {System.err.println(e);}
+	    	
+	    	finally{
+	  	      System.out.println("finally block will execute.");}
+	    }
+	    	
+		   
 	}
 
